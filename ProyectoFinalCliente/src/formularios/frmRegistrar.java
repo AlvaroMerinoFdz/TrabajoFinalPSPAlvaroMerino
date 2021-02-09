@@ -9,12 +9,12 @@ package formularios;
  *
  * @author Alvaro Merino
  */
-public class frmLogin extends javax.swing.JFrame {
+public class frmRegistrar extends javax.swing.JFrame {
 
     /**
-     * Creates new form frmLogin
+     * Creates new form frmRegistrar
      */
-    public frmLogin() {
+    public frmRegistrar() {
         initComponents();
     }
 
@@ -27,47 +27,46 @@ public class frmLogin extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtUsuario = new javax.swing.JTextField();
-        txtPass = new javax.swing.JPasswordField();
         btnIniciarSesion = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
-        lblUsuario = new javax.swing.JLabel();
         lblContraseña = new javax.swing.JLabel();
-        fondo = new javax.swing.JLabel();
+        txtPass = new javax.swing.JPasswordField();
+        txtUsuario = new javax.swing.JTextField();
+        lblUsuario = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(630, 440));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btnIniciarSesion.setText("Volver...");
+        btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnIniciarSesionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, -1, -1));
+
+        btnRegistrar.setText("Registrarse...");
+        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
+
+        lblContraseña.setForeground(new java.awt.Color(240, 240, 240));
+        lblContraseña.setText("Contraseña: ");
+        getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
+        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 160, -1));
 
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtUsuarioActionPerformed(evt);
             }
         });
-        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 160, -1));
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 140, 160, -1));
-
-        btnIniciarSesion.setText("Iniciar Sesión");
-        getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 200, -1, -1));
-
-        btnRegistrar.setText("Registrarse...");
-        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRegistrarActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
+        getContentPane().add(txtUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 50, 160, -1));
 
         lblUsuario.setForeground(new java.awt.Color(240, 240, 240));
         lblUsuario.setText("Usuario:");
-        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 60, -1, -1));
+        getContentPane().add(lblUsuario, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
-        lblContraseña.setForeground(new java.awt.Color(240, 240, 240));
-        lblContraseña.setText("Contraseña: ");
-        getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, -1));
-
-        fondo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/fondo.jpg"))); // NOI18N
-        getContentPane().add(fondo, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 560, 310));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagenes/pareja.jpg"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 290));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -76,18 +75,19 @@ public class frmLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
-    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
-       frmRegistrar reg = new frmRegistrar();
-       reg.setVisible(true);
-       this.dispose();
-    }//GEN-LAST:event_btnRegistrarActionPerformed
+    private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
+        // TODO add your handling code here:
+        frmLogin login = new frmLogin();
+        login.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnIniciarSesionActionPerformed
 
-   
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciarSesion;
     private javax.swing.JButton btnRegistrar;
-    private javax.swing.JLabel fondo;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblContraseña;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtPass;
