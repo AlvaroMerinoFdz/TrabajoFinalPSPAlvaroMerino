@@ -1,9 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package formularios;
+
+import java.net.Socket;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 
 /**
  *
@@ -11,12 +11,17 @@ package formularios;
  */
 public class frmRegistrar extends javax.swing.JFrame {
 
-    /**
-     * Creates new form frmRegistrar
-     */
-    public frmRegistrar() {
+    private Socket servidor;
+    private PublicKey clavePublicaAjena;
+    private PrivateKey clavePrivada;
+   
+    public frmRegistrar(Socket servidor, PublicKey clavePublicaAjena, PrivateKey clavePrivada) {
         initComponents();
+        this.servidor = servidor;
+        this.clavePublicaAjena = clavePublicaAjena;
+        this.clavePrivada = clavePrivada;
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
