@@ -33,8 +33,8 @@ public class frmLogin extends javax.swing.JFrame {
         clavePriv = (PrivateKey) claves[Constantes.CLAVEPRIVADA];
         clavePub = (PublicKey) claves[Constantes.CLAVEPUBLICA];
     }
-    private void intercambioClaves() throws IOException{
-        Utiles.enviarObjeto(servidor,clavePub);
+    private void intercambioClaves() throws IOException, ClassNotFoundException{
+        Utiles.enviarObject(servidor,clavePub);
         clavePubAjena = (PublicKey) Utiles.recibirObjeto(servidor);
     }
     

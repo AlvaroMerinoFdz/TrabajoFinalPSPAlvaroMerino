@@ -1,9 +1,21 @@
 
 package formularios;
 
+import java.io.IOException;
 import java.net.Socket;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SealedObject;
+import javax.swing.JOptionPane;
+import utiles.User;
+import utiles.Utiles;
 
 /**
  *
@@ -32,6 +44,8 @@ public class frmRegistrar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        txtPass1 = new javax.swing.JPasswordField();
+        lblContraseña1 = new javax.swing.JLabel();
         btnIniciarSesion = new javax.swing.JButton();
         btnRegistrar = new javax.swing.JButton();
         lblContraseña = new javax.swing.JLabel();
@@ -42,6 +56,11 @@ public class frmRegistrar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(txtPass1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 130, 160, -1));
+
+        lblContraseña1.setForeground(new java.awt.Color(240, 240, 240));
+        lblContraseña1.setText("Repetir Contraseña: ");
+        getContentPane().add(lblContraseña1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, -1, -1));
 
         btnIniciarSesion.setText("Volver...");
         btnIniciarSesion.addActionListener(new java.awt.event.ActionListener() {
@@ -52,12 +71,17 @@ public class frmRegistrar extends javax.swing.JFrame {
         getContentPane().add(btnIniciarSesion, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 180, -1, -1));
 
         btnRegistrar.setText("Registrarse...");
+        btnRegistrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegistrarActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnRegistrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, -1, -1));
 
         lblContraseña.setForeground(new java.awt.Color(240, 240, 240));
         lblContraseña.setText("Contraseña: ");
         getContentPane().add(lblContraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, -1, -1));
-        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, 160, -1));
+        getContentPane().add(txtPass, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 100, 160, -1));
 
         txtUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,11 +105,42 @@ public class frmRegistrar extends javax.swing.JFrame {
     }//GEN-LAST:event_txtUsuarioActionPerformed
 
     private void btnIniciarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciarSesionActionPerformed
-        // TODO add your handling code here:
-        frmLogin login = new frmLogin();
-        login.setVisible(true);
-        this.dispose();
+        try {
+            // TODO add your handling code here:
+            frmLogin login = new frmLogin();
+            login.setVisible(true);
+            this.dispose();
+        } catch (IOException ex) {
+            Logger.getLogger(frmRegistrar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnIniciarSesionActionPerformed
+
+    private void btnRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarActionPerformed
+        // TODO add your handling code here:
+        String pwd = Utiles.recorrerPassword(txtPass.getPassword());
+        String pwd1 = Utiles.recorrerPassword(txtPass1.getPassword());
+        
+        //vamos a comprobar que los campos no estan vacios
+        if(txtUsuario.getText().equals("")||pwd.equals("") || pwd1.equals("")){
+            JOptionPane.showMessageDialog(null,"Todos los campos deben de estar rellenados", "ERROR", JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            if(Utiles.comprobarPassword(pwd1,pwd)){
+                try{
+                    String id = UUID.randomUUID().toString();
+                    String algoritmoPWD = Utiles.pwdAlgoritmo(pwd);
+                    
+                    User user = new User(id,txtUsuario.getText(),algoritmoPWD);
+                    SealedObject objetocifrado = Utiles.cifrarObjeto(user, clavePublicaAjena);
+                    Utiles.enviarObject(servidor, objetocifrado);
+                }catch(IOException | InvalidKeyException | NoSuchAlgorithmException | IllegalBlockSizeException | NoSuchPaddingException e){
+                    System.out.println("Error: "+e.getMessage());
+                }
+            }else{
+                JOptionPane.showMessageDialog(null,"Las contraseñas con coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }//GEN-LAST:event_btnRegistrarActionPerformed
 
     
 
@@ -94,8 +149,10 @@ public class frmRegistrar extends javax.swing.JFrame {
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblContraseña;
+    private javax.swing.JLabel lblContraseña1;
     private javax.swing.JLabel lblUsuario;
     private javax.swing.JPasswordField txtPass;
+    private javax.swing.JPasswordField txtPass1;
     private javax.swing.JTextField txtUsuario;
     // End of variables declaration//GEN-END:variables
 }
